@@ -1,33 +1,37 @@
 import React from "react";
-import { Route, Routes,Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import NavBar from "../components/Navbar";
 import SignUp from "../components/signUp";
 import LogIn from "../components/Login";
 import Home from "../components/Home";
 import User from "../components/userPage";
+import Products from "../components/Products";
+import Cart from "../components/Cart";
+import { Container } from "react-bootstrap";
 
-function routes() {
-  let isAuthenticated =true;
+function RoutesComponent() {
+  let isAuthenticated = true;
   return (
-    <div>
-      <NavBar/>
+    <Container fluid>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<LogIn/>}></Route>
+        <Route
+          path="/Products"
+          element={
+            <Products/>
+          }
+        ></Route>
+        <Route path="/Cart" element={<Cart />}></Route>
+        <Route path="/login" element={<LogIn />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route
-        path="/user/:id"
-        element={
-          isAuthenticated ? (
-            <User/>
-          ) : (
-            <Navigate to="/logIn" />
-          )
-        }
-      />
+          path="/user/:id"
+          element={isAuthenticated ? <User /> : <Navigate to="/logIn" />}
+        />
       </Routes>
-    </div>
+    </Container>
   );
 }
 
-export default routes;
+export default RoutesComponent;
