@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import NewArrivals from './NewArrivals'
+import HeroSection from './HeroSection'
+import Banner from './Banner'
+import PopularProducts from './PopularProducts'
 
 function Home() {
   return (
-    <div>
-        <div>this is the home page</div>
-        <NewArrivals/>
-    </div>
+    <Fragment>
+          <HeroSection/>
+          <NewArrivals/>
+          <Banner/>
+          <PopularProducts/>
+    </Fragment>
   )
 }
 

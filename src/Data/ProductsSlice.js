@@ -6,7 +6,7 @@ import axios from 'axios';
   'getAllProducts',
   async (payload,thunkAPI) => {
     try{
-      const response = await axios.get("https://dummyjson.com/products")
+      const response = await axios.get("https://dummyjson.com/products?limit=16")
       thunkAPI.dispatch(getProducts.fulfilled(response.data));
       //console.log(response.data)
       return response.data

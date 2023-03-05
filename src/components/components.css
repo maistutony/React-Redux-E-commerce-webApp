@@ -1,0 +1,43 @@
+/* Hero section */
+.herosection {
+    position: relative;
+    height: 80vh;
+    background: linear-gradient(to left, rgba(64,30,107,1) 0%, rgba(67,38,161,1) 37%, rgba(42,177,171,1) 64%, rgba(126,185,196,1) 100%);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    color: white;
+}
+.laptops{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100% ;
+}
+.col2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* New Arrivals*/
+.owl {
+    margin: 15px;
+}
+
+.headline {
+    background-color: #f5f5f5;
+}
+
+.newArrivals {
+    justify-content: center;
+    align-items: center;
+}
+
+.my-next-button {
+    margin: 12px;
+    font-size: 24px;
+}

@@ -8,6 +8,7 @@ import User from "../components/userPage";
 import Products from "../components/Products";
 import Cart from "../components/Cart";
 import { Container } from "react-bootstrap";
+import Footer from "../components/Footer";
 
 function RoutesComponent() {
   let isAuthenticated = true;
@@ -30,6 +31,7 @@ function RoutesComponent() {
           element={isAuthenticated ? <User /> : <Navigate to="/logIn" />}
         />
       </Routes>
+      <Footer/>
     </Container>
   );
 }
