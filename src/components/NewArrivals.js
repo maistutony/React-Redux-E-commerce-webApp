@@ -46,9 +46,8 @@ function NewArrivals() {
         >
           {data.products.map((item) => (
             <ProductCard
-              name={item.title}
-              description={item.description}
-              imgUrl={item.images[0]}
+              key={item.id}
+              product={item}
             />
           ))}
         </OwlCarousel>

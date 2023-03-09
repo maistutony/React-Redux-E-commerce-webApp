@@ -29,13 +29,11 @@ function PopularProducts() {
       <Row md={4} className="m-3" >
       { data!==null && (data.products.map((item) => (
        
-          <Col className="mb-3" >
+          <Col className="mb-2" >
             <ProductCard 
-            className="m-3"
+            className="m-2"
               key={item.id}
-              name={item.title}
-              imgUrl={item.images[0]}
-              description={item.description}
+              product={item}
             />
           </Col>
       )) )}

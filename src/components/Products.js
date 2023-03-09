@@ -9,21 +9,18 @@ import Col from "react-bootstrap/Col";
 function Products() {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
-  console.log(products)
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
   return (
-    <Row md={4} className="m-3" >
+    <Row md={4} className="p-3" >
       {products.map((item) => (
        
           <Col className="mb-3" >
             <ProductCard 
-            className="m-3"
+            className="p-3"
               key={item.id}
-              name={item.title}
-              imgUrl={item.images[0]}
-              description={item.description}
+              product={item}
             />
           </Col>
       ))}

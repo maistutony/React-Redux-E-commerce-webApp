@@ -41,3 +41,21 @@
     margin: 12px;
     font-size: 24px;
 }
+  .trash{
+ background-color:white;
+ color: red;
+  }
+  .trash:hover{
+    background-color: red;
+    color: white;
+  }
+  .quantity{
+    border-radius: 50%;
+    font-size: 12px;
+  }
+.card-footer{
+     padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
