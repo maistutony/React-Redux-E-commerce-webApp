@@ -1,7 +1,6 @@
 /* Hero section */
 .herosection {
     position: relative;
-    height: 80vh;
     background: linear-gradient(to left, rgba(64,30,107,1) 0%, rgba(67,38,161,1) 37%, rgba(42,177,171,1) 64%, rgba(126,185,196,1) 100%);
     background-position: center center;
     background-repeat: no-repeat;
@@ -39,7 +38,6 @@
 
 .my-next-button {
     margin: 12px;
-    font-size: 24px;
 }
   .trash{
  background-color:white;
@@ -59,3 +57,9 @@
     justify-content: space-between;
     align-items: center;
 }
+@media only screen and (min-width: 600px) {
+    .herosection {
+        height: 80vh;
+    }
+  }
+  

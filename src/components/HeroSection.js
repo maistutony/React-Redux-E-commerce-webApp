@@ -1,9 +1,7 @@
 import React from "react";
 import "./components.css";
 import Image from "react-bootstrap/Image";
-//import Card from 'react-bootstrap/Card';
 import laptops from "../Images/laptops.png";
-//import wave from "../Images/wave.png";
 import { Container,Button } from "react-bootstrap";
 
 function HeroSection() {
@@ -21,12 +19,6 @@ function HeroSection() {
           </p>
           <Button>Shop Now</Button>
         </div>
-        {/* <div className="col-md-6">
-           
-      </div>
-      <div className="headline col-md-6">
-      <h2>Power your future your dream through our revolutional Products</h2>
-      </div> */}
       </div>
     </Container>
   );
