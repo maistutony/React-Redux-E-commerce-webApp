@@ -1,89 +1,100 @@
-import { Form, FormGroup, FormControl, Button, Col } from 'react-bootstrap';
-import axios from 'axios';
-const RegistrationForm = ({setisRegistered,email,setEmail,password,setPassword,userName,setuserName}) => {
-  const hansdleAsync=async(payload)=>{
-      try{
-    const response=await axios.post("http://localhost:5000/register",payload,{
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const information=await response.data;
-      console.log(information)
-      if(information.includes("registered successfully"))    setisRegistered((pre)=>!pre)
-      }catch(error){
-        console.log(error)
-      }
+import React from "react";
+import { Form, Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { setUser} from "../Data/UserSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate=useNavigate()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+  });
+
+  function handleRegister(payload) {
+       dispatch(setUser(payload));
   }
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (password && userName && email) {
-      const data={
-        email:email,
-        password:password,
-        userName
-      }
-      setEmail("");
-      setPassword("");
-      setuserName("");
-      hansdleAsync(data);
-    } else {
-      alert("Fill all the fields")
-    }
+
+  const handleRegistration = (data) => {
+    handleRegister(data)
+    navigate("/login")
+    reset();
+  };
+  const handleError = (errors) => {
+    console.log(errors);
+  };
+
+  const registerOptions = {
+    username: { required: "Name is required" },
+    email: { required: "Email is required" },
+    password: {
+      required: "Password is required",
+      minLength: {
+        value: 8,
+        message: "Password must have at least 8 characters",
+      },
+    },
   };
 
   return (
-    <Form className='form' horizontal onSubmit={handleSubmit}>
-        <h2>SignUp Form</h2>
-      <FormGroup controlId="formHorizontalEmail">
-        <Col sm={2}>
-          Email
-        </Col>
-        <Col sm={10}>
-          <FormControl
+    <div className="w-100 d-flex flex-column justify-content-center align-items-center registration-form">
+      <h4 className="register-h4">Registration Form</h4>
+      <Form
+        className="text-dark w-50"
+        onSubmit={handleSubmit(handleRegistration, handleError)}
+      >
+        <Form.Group controlId="email">
+          <Form.Label className="form-label">Email</Form.Label>
+          <Form.Control
+            className="form-input"
             type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            name="email"
+            {...register("email", registerOptions.email)}
           />
-        </Col>
-      </FormGroup>
+          {errors.email && errors.email.type === "required" && (
+            <p className="errorMsg">Email is required.</p>
+          )}
+        </Form.Group>
 
-      <FormGroup controlId="formHorizontalPassword">
-        <Col sm={2}>
-          Password
-        </Col>
-        <Col sm={10}>
-          <FormControl
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </Col>
-      </FormGroup>
-
-      <FormGroup controlId="formHorizontaluserName">
-        <Col sm={2}>
-          UserName
-        </Col>
-        <Col sm={10}>
-          <FormControl
+        <Form.Group controlId="username">
+          <Form.Label className="form-label">Username</Form.Label>
+          <Form.Control
+            className="form-input"
             type="text"
-            placeholder="UserName"
-            value={userName}
-            onChange={(event) => setuserName(event.target.value)}
+            name="username"
+            {...register("username", registerOptions.username)}
           />
-        </Col>
-      </FormGroup>
+          {errors.username && errors.username.type === "required" && (
+            <p className="errorMsg">username is required.</p>
+          )}
+        </Form.Group>
 
-      <FormGroup>
-        <Col sm={10}>
-          <Button type="submit">Sign up</Button>
-        </Col>
-      </FormGroup>
-    </Form>
+        <Form.Group controlId="password">
+          <Form.Label className="form-label">Password</Form.Label>
+          <Form.Control
+            className="form-input"
+            type="password"
+            name="password"
+            {...register("password", registerOptions.password)}
+          />
+          {errors.password && errors.password.type === "minLength" && (
+            <p className="errorMsg">min of 8 character is required.</p>
+          )}
+          {errors.password && errors.password.type === "required" && (
+            <p className="errorMsg">password is required.</p>
+          )}
+        </Form.Group>
+        <Button  className="register-button" variant="primary" type="submit">
+          Register
+        </Button>
+      </Form>
+    </div>
   );
 };
 
-export default RegistrationForm;
+export default SignUp;

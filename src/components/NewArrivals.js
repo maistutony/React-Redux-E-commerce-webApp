@@ -1,94 +1,88 @@
-import React, { useState, useEffect } from "react";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+import React, { useEffect,useState} from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import ProductCard from "./ProductCard";
-import axios from "axios";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row,Col } from "react-bootstrap";
 import "./components.css";
+import axios from "axios"
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {Col} from "react-bootstrap"
 
 function NewArrivals() {
-  //these are the setting to configure the carousel
-  const options = {
-    nav: true,
-    navClass: ["my-prev-button", "my-next-button"],
-    responsive:{
-      0:{
-          items:1
-      },
-      600:{
-          items:3
-      },
-      1000:{
-          items:4
-      }
-    },
-  };
+   const responsive = {
+     superLargeDesktop: {
+       // the naming can be any, depends on you.
+       breakpoint: { max: 4000, min: 3000 },
+       items: 5,
+     },
+     desktop: {
+       breakpoint: { max: 3000, min: 1024 },
+       items: 4,
+     },
+     tablet: {
+       breakpoint: { max: 1024, min: 464 },
+       items: 2,
+     },
+     mobile: {
+       breakpoint: { max: 464, min: 0 },
+       items: 1,
+     },
+   };
 
   //create a data state to hold our data once fetched from the api
   const [data, setData] = useState(null);
   const [loading,setLoading]=useState(true)
   const skeletonArray = [...Array(6)];
+      async function getArrivals() {
+        try {
+          const response = await axios.get(
+            "https://dummyjson.com/products?limit=12",
+          );
+          const newArrive = response.data;
+          setData(newArrive.products);
+          setLoading(false);
+        } catch (error) {
+          console.log(error.response.status);
+        }
+      };
+
   useEffect(() => {
-    const getArrivals = async () => {
-      try {
-        const response = await axios.get(
-          "https://dummyjson.com/products?limit=12",
-        );
-        const newArrive = await response.data;
-        setData(newArrive);
-        setLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getArrivals();
-  }, []);
+      setTimeout(getArrivals(),2000);
+  }, [])
   return (
-    <Container fluid className="newArrivals">
+    <Container fluid className="newArrivals py-3">
       <Row className="headline">
         <h3 className="text-center">New Arrivals</h3>
       </Row>
-      {(loading && data===null)?
-      <OwlCarousel
-      {...options}
-      className="owl owl-theme"
-      loop={true}
-      autoplay={true}
-      margin={10}
-      nav
-    >
-         {skeletonArray.map((item, index) => (
-          <Col key={index} >
-            <div className="product-image">
-              <Skeleton height={350} />
-            </div>
-            <Row>
-              <Skeleton />
-            </Row>
-          </Col>
-        ))}
-    </OwlCarousel>
-           :(
-        <OwlCarousel
-          {...options}
-          className="owl owl-theme"
-          loop={true}
-          autoplay={true}
-          margin={10}
-          nav
+      <Row>
+        <Carousel
+          responsive={responsive}
+          itemClass="carousel-item-padding-40-px"
+          dotListClass="custom-dot-list-style"
+          containerClass="carousel-container"
+          transitionDuration={500}
+          autoPlaySpeed={3000}
+          ssr={true}
+          infinite={true}
+          autoPlay={true}
         >
-          {data.products.map((item) => (
-            <ProductCard
-              key={item.id}
-              product={item}
-            />
-          ))}
-        </OwlCarousel>
-      )}
+          {loading &&
+            data === null &&
+            skeletonArray.map((item, index) => (
+              <Col key={index}>
+                <div className="product-image">
+                  <Skeleton height={350} />
+                </div>
+                <Row>
+                  <Skeleton />
+                </Row>
+              </Col>
+            ))}
+          {loading === false &&
+            data !== null &&
+            data.map((item) => <ProductCard key={item.id} product={item} />)}
+        </Carousel>
+      </Row>
     </Container>
   );
 }

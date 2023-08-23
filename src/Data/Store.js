@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cartReducer from './CartSlice';
 import productsReducer from './ProductsSlice';
+import userReducer from "./UserSlice"
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
-    products: productsReducer
+    products: productsReducer,
+    users:userReducer
   }
 })
-// const productsInStock= store.getState().products;
-// console.log(productsInStock)

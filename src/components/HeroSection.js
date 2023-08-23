@@ -2,9 +2,11 @@ import React from "react";
 import "./components.css";
 import Image from "react-bootstrap/Image";
 import laptops from "../Images/laptops.png";
-import { Container,Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function HeroSection() {
+  const navigate=useNavigate()
   return (
     <Container fluid>
       <div className="row herosection">
@@ -17,7 +19,7 @@ function HeroSection() {
             Our revolutionary products are designed to transform the way you
             live and empower you to achieve your full potential.
           </p>
-          <Button>Shop Now</Button>
+          <Button onClick={()=>navigate("/products")}>Shop Now</Button>
         </div>
       </div>
     </Container>

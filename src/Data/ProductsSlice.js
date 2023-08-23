@@ -27,7 +27,6 @@ const productsSlice = createSlice({
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
     addProduct: (state, action) => {
-      console.log(action.payload)
       state.push(action.payload);
     }
   },

@@ -5,7 +5,6 @@ import {Row } from "react-bootstrap";
 
 const LoadingSkeleton = () => {
   const skeletonArray = [...Array(8)]; // Change 12 to the number of products you want to display
-
   return (
     <Fragment>
         {skeletonArray.map((item, index) => (

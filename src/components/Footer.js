@@ -61,7 +61,7 @@ const Footer = () => {
           </Col>
         </Row>
         <hr />
-        <p className="text-center">&copy; 2023 My E-commerce Website. All rights reserved.</p>
+        <p className="text-center">&copy; 2023 Athi Fashions. All rights reserved.</p>
       </Container>
     </footer>
   );
